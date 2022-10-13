@@ -19,7 +19,16 @@ public class EmployeeGlobalExceptionHandler extends ResponseEntityExceptionHandl
         EmployeeExceptionResponse exception = new EmployeeExceptionResponse(ex.getMessage(),
                 request.getDescription(false), new Date());
 
-       return new ResponseEntity<Object>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<Object>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @ExceptionHandler(EmployeeNotFound.class)
+    public ResponseEntity<Object> handleEmployeeNotFoundException(Exception ex, WebRequest request) {
+        EmployeeExceptionResponse exception = new EmployeeExceptionResponse(ex.getMessage(),
+                request.getDescription(false), new Date());
+
+        return new ResponseEntity<Object>(exception, HttpStatus.NOT_FOUND);
 
     }
 
