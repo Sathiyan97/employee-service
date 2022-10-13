@@ -40,4 +40,15 @@ public class EmployeeController {
         return ResponseEntity.created(uri).build();
 
     }
+
+    @DeleteMapping("employees/delete/{empId}")
+    public void deleteEmployee(@PathVariable int empId){
+        Employee emp = service.deleteEMployee(empId);
+
+        if(emp == null){
+            throw new EmployeeNotFound("Employee Not Found!");
+        }
+
+    }
+
 }
