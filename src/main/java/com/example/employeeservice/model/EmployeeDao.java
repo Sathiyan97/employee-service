@@ -27,8 +27,9 @@ public class EmployeeDao {
                 .orElse(null);
     }
 
-    public void addEmployee(Employee emp) {
+    public Employee addEmployee(Employee emp) {
         emp.setEmployeeId(123 + list.size()+1);
         list.add(emp);
+        return emp;
     }
 }
