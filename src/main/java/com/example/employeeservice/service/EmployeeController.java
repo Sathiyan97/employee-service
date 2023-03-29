@@ -14,9 +14,10 @@ import java.util.List;
 @RestController
 public class EmployeeController {
     @Autowired
+
     EmployeeDao service;
 
-    @GetMapping("/employees")
+    @GetMapping(path = "/employees")
     public List<Employee> getAll() {
         return service.getAllEmloyees();
     }
@@ -30,22 +31,19 @@ public class EmployeeController {
         return employee;
     }
 
-    @PostMapping("employees/add")
+    @PostMapping("/employees/add")
     public ResponseEntity<Object> addEmployee(@RequestBody Employee emp) { //employee data get from the body
         Employee newEmployee = service.addEmployee(emp);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("{employeeId}")
-                .buildAndExpand(newEmployee.getEmployeeId())
-                .toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{employeeId}").buildAndExpand(newEmployee.getEmployeeId()).toUri();
         return ResponseEntity.created(uri).build();
 
     }
 
-    @DeleteMapping("employees/delete/{empId}")
-    public void deleteEmployee(@PathVariable int empId){
+    @DeleteMapping("/employees/delete/{empId}")
+    public void deleteEmployee(@PathVariable int empId) {
         Employee emp = service.deleteEMployee(empId);
 
-        if(emp == null){
+        if (emp == null) {
             throw new EmployeeNotFound("Employee Not Found!");
         }
 
